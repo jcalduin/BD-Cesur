@@ -1,0 +1,53 @@
+Ejercicios Consultas MongoDB
+
+A través de Compass de MongoDB, accede al archivo users_1.7m.json en la base de datos BigData y realiza los siguientes ejercicios.
+
+Realiza las siguientes consultas aplicando los filtros pertinentes en el cuadro de texto y añadiendo más cribas con la extensión de Options.
+
+Ejercicio 1.- Muestra el nombre y la edad de las personas que se llamen “Elijah” y tengan una edad comprendida entre 30 y 50 años (ambos incluidos). Ordena los resultados por la edad (de mayor a menor).
+
+{$and:[
+  {name:{$eq:"Elijah"}},
+  {age:{$gte:30}},
+  {age:{$lte:50}}
+]}
+Project:  {name: 1,age: 1,_id:0}
+Sort:        {age: -1}
+
+Ejercicio 2.- Muestra el id, nombre, edad y ciudad de las 10 personas con mayor edad que no vivan en Honolulu, Sedona, San Diego y Las Vegas. Ordena los resultados por la edad (de mayor a menor), y en su defecto por su identificador (de menor a mayor).
+
+{city:{$nin:["Honolulu","Sedona","San Diego","Las Vegas"]}}
+Project:   {name: 1,age: 1,_id:0,id:1,city:1}
+Sort:        {age: -1,id:1}
+Limit:       10
+
+Ejercicio 3.- Muestra el nombre, edad y ciudad de la sexta y septima persona con menor edad, que sean de "Portland" o tengan un nombre que comience por la letra “V”.
+
+{$or:[
+  {city:{$eq:"Portland"}},
+  {name:{$regex:/^V/}}
+]}
+Project:   {name: 1,age: 1,_id:0,city:1}
+Sort:        {age: 1}
+Skip:   5   Limit:    2
+
+Ejercicio 4.- Muestra el identificador de los usuarios que sean amigos de Jack y Nora, y tengan una edad inferior a 20 años. Ordena los datos por nombre (en orden alfabético), y en su defecto por ciudad (en orden alfabético).
+
+{$and:[
+	{"friends.name":{$eq:"Jack"}},
+  {"friends.name":{$eq:"Nora"}},
+  {age:{$lt:20}}
+]}
+Project:   {id:1, _id:0}
+Sort:        {name: 1, city: 1}
+
+Ejercicio 5.- Muestra el identificador, nombre y lista de amigos de las personas que no se llamen, no tengan un amigo que se llame Jack y su edad sea distinta a 97 años. Ordena los resultados por el identificador (de menor a mayor) y muestra los 100 primeros resultados de la consulta.
+
+{$and:[
+  {name:{$ne:"Elijah"}},
+  {"friends.name":{$ne:"Jack"}},
+  {age:{$ne:97}}
+]}
+Project:   {_id:0,id:1,name:1,friends:1}
+Sort:        {id:1}
+Limit:       100

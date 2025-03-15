@@ -1,0 +1,61 @@
+Ejercicios Consultas MongoDB
+
+A través de Compass de MongoDB, accede al archivo MOVIES dentro de la bases de datos de SAMPLE_MFLIX dentro de las colecciones que ofrece la aplicación por defecto. 
+Realiza las siguientes consultas aplicando los filtros pertinentes en el cuadro de texto.
+
+Ejercicio 1.- Busca las películas que tengan una mayor que 80 y menor que 90 en Metacritic.
+
+{$and:[
+  {metacritic:{$gt:80}},
+  {metacritic:{$lt:90}}
+]}
+
+Ejercicio 2.- Busca las películas que contengan la palabra "English" en alguno de sus campos.
+
+Ejercicio 3.- Busca las películas que contengan la palabra "English" o "Russian" en alguno de sus campos.
+
+Ejercicio 4.- Busca las películas que no hayan sido dirigidas por "Frank Capra" ni "Andrew L. Stone".
+
+{$and:[
+  {directors:{$ne:"Frank Capra"}},
+  {directors:{$ne:"Andrew L. Stone"}}
+]}
+
+{directors:{$nin:["Frank Capra","Andrew L. Stone"]}}
+
+Ejercicio 5.- Busca las películas que no tengan una duración mayor a 80.
+
+{runtime:{$lt:80}}
+
+Ejercicio 6.- Busca las películas con un género igual a Drama, mayor nota que 90 en Metacritic o director Maurice Tourneur.
+
+{$or:[
+  {$and:[
+  	{genres:{$eq:"Drama"}},
+  	{metacritic:{$gt:90}}]},
+  {directors:{$eq:"Maurice Tourneur"}}
+]}
+
+Ejercicio 7.- Busca las películas que tengan un director con un nombre que comience por la letra “A”.
+
+{directors:{$regex:/^A/}}
+
+Ejercicio 8.- Busca las películas que tengan un director con un nombre que contenga la letra ”x”.
+
+{directors:{$regex:/X/}}
+
+Ejercicio 9.- Busca las películas que tengan un director con un nombre que termine por la letra ”t”.
+
+{directors:{$regex:/T$/}}
+
+Ejercicio 10.- Busca las películas que sean de género Drama o Action, el nombre del director comienzo por la letra G y el tiempo de la película sea mayor o igual que 80.
+
+
+{$and:[
+  {$or:[
+    {genres:{$eq:"Action"}},
+    {genres:{$eq:"Drama"}}
+	]},
+  {directors:{$regex:/^G/}},
+  {runtime:{$gte:80}}
+]}

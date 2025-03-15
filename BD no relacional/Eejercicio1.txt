@@ -1,0 +1,45 @@
+Ejercicios Consultas MongoDB
+
+A través de Compass de MongoDB, accede al archivo MOVIES dentro de la bases de datos de SAMPLE_MFLIX dentro de las colecciones que ofrece la aplicación por defecto. 
+
+Realiza las siguientes consultas aplicando los filtros pertinentes en el cuadro de texto.
+
+Ejercicio 1.- Busca las películas de género Drama.
+
+{genres:{$eq:"Drama"}}
+
+Ejercicio 2.- Busca las películas de género Drama y Fantasy.
+
+{$and:[{genres:{$eq:"Drama"}},{genres:{$eq:"Fantasy"}}]}
+
+Ejercicio 3.- Busca las películas de género Drama o Action.
+
+{$or:[{genres:{$eq:"Drama"}},{genres:{$eq:"Action"}}]}
+
+Ejercicio 4.- Busca las películas de género distinto a Drama o Action.
+
+{genres:{$nin:["Drama","Action"]}}
+
+Ejercicio 5.- Busca las películas con una duración mayor que 120.
+
+{runtime:{$gt:120}}
+
+Ejercicio 6.- Busca las películas que tengan una nota mayor que 80 en Metacritic.
+
+{"tomatoes.critic.meter":{$gt:80}}
+
+Ejercicio 7.- Busca las películas que tengan una nota menor que 80 en Metacritic.
+
+{"tomatoes.critic.meter":{$lt:80}}
+
+Ejercicio 8.- Busca las películas que tengan una igual a 80 en Metacritic.
+
+{"tomatoes.critic.meter":{$eq:80}}
+
+Ejercicio 9.- Busca las películas que tengan una mayor o igual a 80 en Metacritic.
+
+{"tomatoes.critic.meter":{$gte:80}}
+
+Ejercicio 10.- Busca las películas que tengan una menor o igual a 80 en Metacritic.
+
+{"tomatoes.critic.meter":{$lte:80}}
