@@ -1,0 +1,35 @@
+Ejercicios Consultas MongoDB
+
+A través de Compass de MongoDB, accede al archivo users_1.7m.json en la base de datos BigData y realiza los siguientes ejercicios.
+
+Realiza las siguientes consultas aplicando las agregaciones necesarias.
+
+Ejercicio 1.- Muestra el ID y el nombre de todos los usuarios ordenados por el nombre (en orden alfabético) y en su defecto por el ID (de menor a mayor).
+
+Project: 	{_id: 0,name:1,id:1}
+Sort:  		{name:1,id:1}
+
+Ejercicio 2.- Muestra el nombre y la edad de los 10 usuarios con mayor edad, siempre y cuando los usuarios que tengan una edad comprendida entre 60 y 80 años (ambos no incluidos).
+
+Match: 		{age:{$gte:60},age:{$lte:80}}
+Project:     	{name:1,_id:0,age:1}
+limit: 		10
+
+Ejercicio 3.- Muestra todos los campos de los usuarios, a excepción de el _id siempre y cuando tengan una amiga llamada “Michelle” o “Olivia”. Ordena el resultado por el nombre del usuario (en orden inverso al orden alfabético), o en su defecto por su identificador (de menor a mayor).
+
+Match:		{$or:[{"friends.name":{$eq:"Michelle"}},{"friends.name":{$eq:"Olivia"}}]}
+Project: 	{_id:0}
+Sort:   		{name:-1,id:1}
+
+Ejercicio 4.- Cuenta el número de usuarios que vivan en Austin o Boston, y tengan un amigo que tenga como hobbie ver deporte y un amigo que tenga como hobbie los video juegos.
+
+Match: 		$and:[{"friends.hobbies":{$eq:"Watching Sports"}},{"friends.hobbies":{$eq:"Video Games"}},{$or:		[{city:{$eq:"Austin"}},{city:{$eq:"Boston"}}]}]}
+Count
+
+Ejercicio 5.- Muestra el nombre y la edad de los 10 primeros usuarios ordenados por su identificador (de menor a mayor). Filtra los datos para que solo se muestren los usuarios que contengan la letra “h” en su nombre, y ordena los resultados por la edad de los usuarios (de mayor a menor).
+
+Project:   	{_id:0,age:1,name:1}
+Sort:   		{id:1}
+Limit:  		10
+Match:  	{name:{$regex:/h/}}
+Sort:  		{age: -1}
